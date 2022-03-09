@@ -1,0 +1,124 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: utils/tokenHelper.js | Inicio</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="">
+        
+            <img src="img/toast-ui.png" width="100%" height="100%">
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">Inicio</a></h1>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+    <div class="lnb-api hidden"><h3>Modules</h3><ul><li><a href="module-Crypt.html">Crypt</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Crypt_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Crypt.html#.crypt">crypt</a></li><li><a href="module-Crypt.html#.deCrypt">deCrypt</a></li></ul></div></li><li><a href="module-Excel.html">Excel</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Excel_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Excel.html#~toJSON">toJSON</a></li></ul></div></li><li><a href="module-Product-Services.html">Product-Services</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Product-Services_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Product-Services.html#.createProduct">createProduct</a></li><li><a href="module-Product-Services.html#.deleteProductById">deleteProductById</a></li><li><a href="module-Product-Services.html#.findProductById">findProductById</a></li></ul></div></li><li><a href="module-Token.html">Token</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Token_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Token.html#.createToken">createToken</a></li><li><a href="module-Token.html#.verifyToken">verifyToken</a></li></ul></div></li><li><a href="module-Upload.html">Upload</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:Upload_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-Upload.html#~resetTmp">resetTmp</a></li></ul></div></li><li><a href="module-User-Services.html">User-Services</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="module:User-Services_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="module-User-Services.html#.createUser">createUser</a></li><li><a href="module-User-Services.html#.findUserByEmail">findUserByEmail</a></li><li><a href="module-User-Services.html#.findUserById">findUserById</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li class="hidden"><a href="global.html#Category">Category</a></li><li><a href="global.html#categorySchema">categorySchema</a></li><li class="hidden"><a href="global.html#Product">Product</a></li><li><a href="global.html#productSchema">productSchema</a></li><li class="hidden"><a href="global.html#User">User</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const jwt = require('jsonwebtoken');
+
+/**
+ * @module Token
+ */
+
+/**
+ * Crea un token 
+ * @param {object} payload Informacion que se va a guardar en el token
+ * @param {number} time El tiempo de duracion del token 
+ * @returns {string} Hash del token
+ */
+exports.createToken = (payload,time)=>{
+    return new Promise(async(resolve,reject)=>{
+
+        if(!payload) throw new Error('Es necesario el payload')
+        if(!time){
+            time = 20
+        }
+        try{
+            const token = await jwt.sign({data:payload}, process.env.SECRET, {
+                expiresIn: 60 * time 
+            });
+            resolve(token)
+        }catch(err){
+            reject(err)
+        }
+    })
+}
+
+/**
+ * Verifica si el token es valido
+ * @param {string} token El token que tiene el usuario el ingresar
+ * @returns {object} Devuleve la informacion del token
+ */
+exports.verifyToken = (token) =>{
+    return new Promise (async(resolve,reject)=>{
+
+        if(!token) throw new Error('Es necesario el payload')
+        try{
+            const verify = await jwt.verify(token, process.env.SECRET)
+            resolve(verify)
+        }catch(err){
+            reject(err)
+        }
+    })
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="img/toast-ui.png" style="">
+    <div class="footer-text">My awesome footer text</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>

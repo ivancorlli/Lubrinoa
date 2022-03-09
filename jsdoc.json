@@ -1,0 +1,25 @@
+{
+	"plugins" : [],
+	"source":{
+		"include":["controllers", "models","utils","services"], 
+		"includePattern":".js$", 
+		"exlcludePattern" : "(node_modules/docs)"
+	},
+"templates":{
+		"cleverLinks":false,
+		"monospaceLinks":false,
+		"name": "Inicio",
+		"tabNames": {
+			"api": "API",
+			"tutorials": "Examples"
+		},
+		"footerText": "My awesome footer text"
+},
+
+"opts":{
+		"recurse":"true",
+		"destination":"./docs",
+		"template": "node_modules/tui-jsdoc-template"
+	}
+
+}
