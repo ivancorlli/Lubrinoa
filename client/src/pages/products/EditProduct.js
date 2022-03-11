@@ -91,7 +91,6 @@ const EditProduct = () => {
 
       let {data} = await AxiosInstance.patch('product',string);
       if(data){
-        setForm(initialForm)
         setCategory({category:''})
         handleMessage(data?.ok,data?.msg)
       }
@@ -101,7 +100,6 @@ const EditProduct = () => {
         
       }
       setCategory({category:''})
-      setForm(initialForm)
     }
   }
   return (

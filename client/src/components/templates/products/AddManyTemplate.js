@@ -47,6 +47,7 @@ const AddManyTemplate = ({
     existingProducts,
     categoryError,
     message,
+    isLoading,
 }) => {
     const navigate = useNavigate()
 
@@ -61,33 +62,38 @@ const AddManyTemplate = ({
             <Text size='h2' color='fontDark' weight='semibold'>
                 Crear varios productos
             </Text>
-        </Stack>
-                <Form onSubmit={handleSubmit} >
-                    <Text
-                    color='fontDark'
-                    size='h4'
-                    >
-                        Es neceseario subir un archivo excel.
-                    </Text>
-                    <InputFile
-                    name='excel'
-                    
-                    onChange={handleForm}
-                    />
-
-                        <ActionButton 
-                        type='warning'
-                        color='dark'
-                        >
-                            Enviar
-                        </ActionButton>
-                </Form>
-                <ResponseMessage
-                message={message}
-                existingProducts={existingProducts}
-                categoryError={categoryError}
-                />
-    </Container>
+            </Stack>
+            {
+                !isLoading ?
+                        <Form onSubmit={handleSubmit} >
+                                <Text
+                                color='fontDark'
+                                size='h4'
+                                >
+                                    Es neceseario subir un archivo excel.
+                                </Text>
+                                <InputFile
+                                name='excel'
+                                
+                                onChange={handleForm}
+                                />
+            
+                                    <ActionButton 
+                                    type='warning'
+                                    color='dark'
+                                    >
+                                        Enviar
+                                    </ActionButton>
+                            </Form>
+                            :
+                            <h2>Cargando</h2>
+                        }
+                        <ResponseMessage
+                        message={message}
+                        existingProducts={existingProducts}
+                        categoryError={categoryError}
+                        />
+        </Container>
     
   )
 }

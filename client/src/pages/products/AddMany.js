@@ -17,7 +17,6 @@ const AddMany = () => {
     const [existingProducts, setExistingProduct] = useState([]);
     const [message, setMessage] = useState(initialMessage);
     const {handleMessage} = useNotification();
-
 //Funciones 
     function handleForm(e){
         setForm({
@@ -29,8 +28,8 @@ const AddMany = () => {
         let formData = new FormData();
         formData.append('excel',form.excel)
         try{
+            setIsLoading(()=>true)
             let {data} = await AxiosInstance.post('products',formData)
-            setIsLoading(true)
             if(data){
                 setMessage({
                     newProducts:data.msg[1],
@@ -41,8 +40,7 @@ const AddMany = () => {
                 setCategoryError(data.categoryErrors)
                 setExistingProduct(data.existingProducts)
             }
-            console.log(data)
-            setIsLoading(false)
+            setIsLoading(()=>false)
         }catch(err){
             handleMessage(err?.response?.data?.ok,err?.response?.data?.msg)
 
