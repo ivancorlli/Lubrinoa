@@ -1,6 +1,7 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Notification from "../components/organisms/Notification";
 import InProgress from "../components/templates/InProgress";
+import NewServicesTemplate from "../components/templates/products/NewServicesTemplate";
 import RecuperarTemplate from "../components/templates/RecuperarTemplate";
 import { useNotification } from "../hooks/useNotification";
 import Clientes from "../pages/clients/Clientes";
@@ -20,6 +21,7 @@ import { Filtros } from "../pages/products/Filtros";
 import NewCategory from "../pages/products/NewCategory";
 import NewProduct from "../pages/products/NewProduct";
 import Products from "../pages/products/Products";
+import Serivicios from "../pages/products/Serivicios";
 import { PrivateRouter } from "./PrivateRouter";
 import { PublicRouter } from "./PublicRouter";
 
@@ -67,9 +69,11 @@ const AppRouter = () => {
             <Route exact path="add-many" element={<AddMany/>} />
             <Route exact path="edit-many" element={<h2>Editar Varios</h2>} />
             <Route exact path=":ProductID" element={<EditProduct />} />
-            <Route exact path="servicios" element={<h2>category</h2>} />
+            <Route exact path="servicios" element={<Serivicios/>} />
+            <Route exact path="servicios/new" element={<NewServicesTemplate/>} />
+            <Route exact path="servicios/:serviceId" element={<Serivicios/>} />
             <Route exact path="categorias/new" element={<NewCategory />} />
-            <Route exact path="categorias/:categoryID" element={
+            <Route exact path="categorias/:categoryId" element={
             <EditCategory/>}/>
             <Route exact path="categorias" element={<Categorias />} />
           </Route>
